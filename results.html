@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type = "text/css" href = "{% static 'css/styles.css'%}">
+    <title>Results</title>
+</head>
+<div class = "results__outline">
+<div class = "results__heading">
+<h1><strong>Results are in!</strong></h1>
+</div>
+
+<div class = "results__result-list">
+<ul>
+{% for choice in question.choice_set.all %}
+<div class = "results__result">
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+</div>
+{% endfor %}
+</ul>
+</div>
+
+</div>
+
+<div class = "results__buttons">
+<a href="{% url 'polls:detail' question.id %}" id = "again">Vote again?</a>
+<a href="{% url 'polls:index' %}" id = "return">Return to polls</a>
+</div>
+
+
+</html>

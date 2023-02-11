@@ -1,0 +1,34 @@
+{% load static %}
+<DOCTYPE html>
+
+<html style="#ffe0ba">
+<head>
+    <link rel="stylesheet" type='text/css' href="{% static "css/styles.css" %}" />
+    <link rel="shortcut icon" type="image/gif" href="{% static "assets/earthspin.gif" %}" >
+    <title>Polling App</title>
+</head>
+
+<div class = "polls__heading">
+    <h1>Polls</h1>
+</div>
+{% if latest_question_list %}
+ 
+    <div class = "polls__available-polls">
+    <ul>
+            
+    {% for question in latest_question_list %}
+
+      <p>{{ question.question_text }}</p>
+           <div class = "polls__available-polls__buttons">
+      <li><a href="{% url 'polls:detail' question.id %}"><button type="button"><strong>Vote!</strong></button></a></li>
+      <li><a class="results"  href= "{% url 'polls:results' question.id %}"><button type="button"><strong>See Results</strong></button></a></li>
+           </div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+</div>
+{% endif %}
+
+
+</html>

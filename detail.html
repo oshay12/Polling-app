@@ -1,0 +1,33 @@
+{% load static %}
+<DOCTYPE html>
+<html style="#ffe0ba">
+
+<head>
+<link rel="stylesheet" type='text/css' href="{% static "css/styles.css" %}" />
+<title>{{ question.question_text }}</title>
+<link rel="shortcut icon" type="image/gif" href="{% static "assets/earthspin.gif" %}" >
+</head>
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+
+<fieldset>
+<div class = "vote__header">
+    <legend><h1>{{ question.question_text }}</h1></legend>
+</div>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for choice in question.choice_set.all %}
+    <div class= "vote__choices">
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"></input>
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    </div>
+    {% endfor %}
+</fieldset>
+
+<div class= "vote__buttons">
+<input type="submit" value="Vote" id = "submit">
+<a href="{% url 'polls:index' %}">Return to polls?</a>
+</div>
+
+</form>
+</html>
